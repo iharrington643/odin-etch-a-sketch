@@ -17,6 +17,13 @@ body {
     gap: 40px;
 }
 
+#main-content {
+    display: flex;
+    flex-direction: row;
+    margin-left: 170px;
+    gap: 40px;
+}
+
 #grid-container {
     display: flex;
     flex-wrap: wrap;
@@ -43,4 +50,42 @@ body {
     background-color: transparent;
     font-size: 20px;
     border-radius: 15px;
+}
+
+#color-palette {
+    height: 640px;
+    width: 150px;
+    background-color: rgb(174, 183, 192);
+    border-radius: 15px;
+    border: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.red-button, .blue-button, .yellow-button, .black-button, .erase-button {
+    height: 100px;
+    width: 100px;
+    border-radius: 90px;
+    margin: 15px;
+}
+
+.red-button {
+    background-color: red;
+}
+
+.blue-button {
+    background-color: blue;
+}
+
+.yellow-button {
+    background-color: yellow;
+}
+
+.black-button {
+    background-color: black;
+}
+
+.erase-button {
+    font-size: 20px;
 }
