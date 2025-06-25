@@ -50,6 +50,8 @@ body {
     background-color: transparent;
     font-size: 20px;
     border-radius: 15px;
+    border: 2px solid #333;
+    color: black;
 }
 
 #color-palette {
@@ -68,6 +70,8 @@ body {
     width: 100px;
     border-radius: 90px;
     margin: 15px;
+    border: 2px solid #333;
+    color: black;
 }
 
 .red-button {
