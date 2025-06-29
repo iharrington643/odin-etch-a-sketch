@@ -1,6 +1,7 @@
 const container = document.getElementById("grid-container");
 const buttonBox = document.getElementById("button-box");
 const colorPalette = document.getElementById("color-palette");
+const optionsToolbar = document.getElementById("options-toolbar");
 
 const newGridButton = document.createElement('button');
 newGridButton.classList.add('new-grid-button');
@@ -28,8 +29,30 @@ eraseButton.classList.add('erase-button');
 eraseButton.textContent = "Erase";
 colorPalette.appendChild(eraseButton);
 
+const gridOnButton = document.createElement('button');
+gridOnButton.classList.add('grid-on-button');
+gridOnButton.textContent = "Grid On";
+optionsToolbar.appendChild(gridOnButton);
+
+const gridOffButton = document.createElement('button');
+gridOffButton.classList.add('grid-off-button');
+gridOffButton.textContent = "Grid Off";
+optionsToolbar.appendChild(gridOffButton);
+
+const hoverModeButton = document.createElement('button');
+hoverModeButton.classList.add('hover-mode-button');
+hoverModeButton.textContent = "Hover";
+optionsToolbar.appendChild(hoverModeButton);
+
+const clickModeButton = document.createElement('button');
+clickModeButton.classList.add('click-mode-button');
+clickModeButton.textContent = "Click";
+optionsToolbar.appendChild(clickModeButton);
+
 let gridSize = 16;
 let paintColor = 'black';
+let gridColor = 'grey';
+let paintMode = 'mouseover';
 
 createGrid(gridSize);
 
@@ -53,6 +76,29 @@ eraseButton.addEventListener('click', () => {
     paintColor = 'white';
 });
 
+gridOnButton.addEventListener('click', () => {
+    gridColor = 'grey';
+    document.querySelectorAll('.grid-squares').forEach(square => {
+        square.style.borderColor = 'grey';
+    });
+});
+
+gridOffButton.addEventListener('click', () => {
+    gridColor = 'transparent';
+    document.querySelectorAll('.grid-squares').forEach(square => {
+        square.style.borderColor = 'transparent';
+    });
+});
+
+hoverModeButton.addEventListener('click', () => {
+    updatePaintMode('mouseover');
+});
+
+clickModeButton.addEventListener('click', () => {
+    updatePaintMode('click');
+});
+
+
 newGridButton.addEventListener('click', () => {
     let newSize = parseInt(prompt("How many squares per side? (Maximum of 100)"))
 
@@ -64,6 +110,22 @@ newGridButton.addEventListener('click', () => {
     gridSize = newSize;
     createGrid(gridSize);
 });
+
+function paintSquare(e) {
+    e.target.style.backgroundColor = paintColor;
+}
+
+function updatePaintMode(newMode) {
+    const squares = document.querySelectorAll('.grid-squares');
+    squares.forEach(square => {
+        square.removeEventListener('click', paintSquare);
+        square.removeEventListener('mouseover', paintSquare);
+
+        square.addEventListener(newMode, paintSquare);
+    });
+
+    paintMode = newMode;
+}
 
 function createGrid(size) {
     container.innerHTML = '';
@@ -78,9 +140,7 @@ function createGrid(size) {
         gridSquares.style.width = `${squareSize}px`;
         gridSquares.style.height = `${squareSize}px`;
 
-        gridSquares.addEventListener('mouseover', () => {
-            gridSquares.style.backgroundColor = paintColor;
-        });
+        gridSquares.addEventListener(paintMode, paintSquare);
     }
 }
 
